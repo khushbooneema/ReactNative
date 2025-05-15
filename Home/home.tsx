@@ -20,15 +20,14 @@ const Home = () => {
 
     const renderFooter = () => {
         if (!loading) {
-            return (
-                <Text>Loading....</Text>
-            )
-        } else {
             return null
+        } else {
+            return (<Text>Loading....</Text>);
         }
     }
 
     const loadMoreMovies = () => {
+        
         if (!loading) {
             fetchMovies(page + 1);
         }
@@ -38,24 +37,28 @@ const Home = () => {
     const sortProps = [
         {
             id: 2,
-            sort: "Popularity",
+            sort: "Popularity"
         },
         {
             id: 3,
-            sort: "Release Date",
+            sort: "Release Date"
         },
         {
             id: 4,
-            sort: "Vote count",
+            sort: "Vote count"
         }
     ]
 
+    const [sortSelected, setSortSelected] = useState(sortProps[0].id);
+
     const sortText = ({item}: {item: {id: number, sort: string}}) => {
         return (
-            <TouchableOpacity style={styles.sortContainer} onPress={() => {
-                console.log("Sort by: ", item.sort)
-                sortMovies(item.sort)
-                }}>
+            <TouchableOpacity style={[styles.sortContainer, (item.id == sortSelected) ? styles.sortContainerSelectedBackground : styles.sortContainerNonSelectedBackground]} 
+            onPress={() => {
+                console.log("Sort button pressed: ", item.sort)
+                setSortSelected(item.id);
+                sortMovies(item.sort);
+            }}>
                 <Text style = {styles.sortList}>{item.sort}</Text>
             </TouchableOpacity>
         )
@@ -92,10 +95,15 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
         padding: 8,
-        backgroundColor: "gray",
         width: "33.3%",
         borderColor: "black",
         borderWidth: 1
+    },
+    sortContainerSelectedBackground: {
+        backgroundColor: "green",
+    },
+    sortContainerNonSelectedBackground: {
+        backgroundColor: "gray",
     },
     sortList: {
         height: 40,
@@ -103,7 +111,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         color: "white",
-        
     }
 });
 
