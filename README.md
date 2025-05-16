@@ -2,7 +2,7 @@
 
 This is a **React Native** project I'm building as part of my self-learning journey. The app fetches movie data using **The Movie Database (TMDB)** API and allows users to:
 
-- Browse a list of movies
+- Browse a list of movies(infinite scroll)
 - Sort them by popularity or rating
 - Mark movies as favorites
 - Persist favorites using local storage
