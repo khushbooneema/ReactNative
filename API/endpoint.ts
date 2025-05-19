@@ -17,9 +17,24 @@ export interface MovieResponse {
 }
 
 export interface MovieDetail extends Movie {
-    budget: number;
-    revenue: number;
     runtime: number;
-    language: string;
+    language: Language;
+    production_companies: ProductionCompany[];
 }
 
+export interface Language {
+    name: string;
+    english_name: string;
+}
+
+export interface ProductionCompany {
+    id: number;
+    name: string;
+    logo_path: string;
+    origin_country: string;
+}
+
+export interface Genre {
+    id: number;
+    name: string;
+}

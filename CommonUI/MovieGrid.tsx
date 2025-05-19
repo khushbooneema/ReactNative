@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Movie } from "../API/endpoint";
+import { useNavigation } from "@react-navigation/native";
+import { MovieDetailView } from "../Home/MovieDetail";
 
 export interface MovieCardProps {
     movie: Movie
@@ -9,8 +11,16 @@ export interface MovieCardProps {
 }
 
 export const MovieGrid = ({ movie, isFavorite, onPressFavorite }: MovieCardProps) => {
+    const navigation = useNavigation();
+    
     return (
-        <TouchableOpacity style = {styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => {
+                console.log("Movie pressed: ", movie.title, navigation)
+                navigation.navigate("movieDetail", { movieId: movie.id })
+            }}
+            >
             <View style = {styles.imageContainer}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}`}} style={styles.image}/>
                 <Text>{movie.popularity}</Text>
@@ -22,7 +32,6 @@ export const MovieGrid = ({ movie, isFavorite, onPressFavorite }: MovieCardProps
                 style = {isFavorite ? styles.favoriteButtonFill: styles.favoriteButtonEmpty}
                 onPress={onPressFavorite}
             />
-
         </TouchableOpacity>
     )
 }
