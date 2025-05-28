@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Movie } from "../API/endpoint";
 import { useNavigation } from "@react-navigation/native";
 import { MovieDetailView } from "../Home/MovieDetail";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export interface MovieCardProps {
     movie: Movie
@@ -23,17 +24,25 @@ export const MovieGrid = ({ movie, isFavorite, onPressFavorite }: MovieCardProps
             >
             <View style = {styles.imageContainer}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}`}} style={styles.image}/>
-                <Text>{movie.popularity}</Text>
+                {/* <Text>{movie.popularity}</Text>
                 <Text>{movie.vote_count}</Text>
-                <Text>{movie.release_date}</Text>
+                <Text>{movie.release_date}</Text> */}
+                
+                <TouchableOpacity onPress={onPressFavorite} style={styles.favoriteButton}>
+                    {favIcon(isFavorite)}
+                </TouchableOpacity>
             </View>
-
-            <TouchableOpacity
-                style = {isFavorite ? styles.favoriteButtonFill: styles.favoriteButtonEmpty}
-                onPress={onPressFavorite}
-            />
         </TouchableOpacity>
     )
+
+    function favIcon(isFavorite: boolean) {
+        if (isFavorite) {
+            return <Ionicons name="heart" size={25} color="red" />;
+        } else {
+            return <Ionicons name="heart-outline" size={25} color="white" />;
+        }
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -48,29 +57,15 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: "75%",
+        height: "100%",
         borderRadius: 8.0
         
     },
-    favoriteButtonFill: {
-        right: 8,
+    favoriteButton: {
+        position: 'absolute',
         top: 8,
-        width: 25,
-        height: 30,
-        padding: 4,
-        borderRadius:10,
-        position: "absolute",
-        backgroundColor: "red"
-    },
-    favoriteButtonEmpty: {
         right: 8,
-        top: 8,
-        width: 25,
-        height: 30,
+        borderRadius: 12,
         padding: 4,
-        borderRadius:10,
-        position: "absolute",
-        backgroundColor: "gray"
     }
-
 })

@@ -8,6 +8,7 @@ import { FavStore } from "../Store/Store";
 import { Favorite } from "../Favorite/Favorite";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MovieDetailView } from "../Home/MovieDetail";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -15,10 +16,19 @@ const Stack = createNativeStackNavigator();
 const createTabBar = () => {
     return (
         <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Discover" component={HomeStackNavigator} options={{ headerShown: false }}/>
+            <Tab.Navigator
+               screenOptions={({ route}) => ({
+                    tabBarIcon: ({ focused, color, size}) => {
+                        if (route.name === "Discover") {
+                            return <Ionicons name="home" size={size} color={color} />;
+                        } else {
+                            return <Ionicons name="star-outline" size={size} color={color} />;
+                        }
+                    }
+               })}
+            >
+                <Tab.Screen name="Discover" component={HomeStackNavigator} options={{ headerShown: false }} />
                 <Tab.Screen name="Favorite" component={Favorite} />
-                <Tab.Screen name="Videos" component={Videos} />
             </Tab.Navigator>
         </NavigationContainer>
     )
@@ -33,7 +43,6 @@ const HomeStackNavigator = () => {
     )
 }
 
-
 export const TabBar = () => {
     return (
         <Provider store={FavStore}>
@@ -41,12 +50,3 @@ export const TabBar = () => {
         </Provider>
     )
 };
-
-
-export const Videos = () => {
-    return (
-        <View>
-            <Text>Videos</Text>
-        </View>
-    )
-}
