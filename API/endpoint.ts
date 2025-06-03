@@ -18,7 +18,7 @@ export interface MovieResponse {
 
 export interface MovieDetail extends Movie {
     runtime: number;
-    language: Language;
+    languages: Language[];
     production_companies: ProductionCompany[];
 }
 

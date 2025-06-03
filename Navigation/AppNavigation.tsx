@@ -18,7 +18,7 @@ const createTabBar = () => {
         <NavigationContainer>
             <Tab.Navigator
                screenOptions={({ route}) => ({
-                    tabBarIcon: ({ focused, color, size}) => {
+                    tabBarIcon: ({color, size}) => {
                         if (route.name === "Discover") {
                             return <Ionicons name="home" size={size} color={color} />;
                         } else {
@@ -28,7 +28,7 @@ const createTabBar = () => {
                })}
             >
                 <Tab.Screen name="Discover" component={HomeStackNavigator} options={{ headerShown: false }} />
-                <Tab.Screen name="Favorite" component={Favorite} />
+                <Tab.Screen name="Favorite" component={Favorite}  />
             </Tab.Navigator>
         </NavigationContainer>
     )
@@ -38,7 +38,7 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="movieDetail" component={MovieDetailView} />
+            <Stack.Screen name="movieDetail" component={MovieDetailView} options={{ headerBackButtonDisplayMode: "minimal" }}/>
         </Stack.Navigator>
     )
 }
