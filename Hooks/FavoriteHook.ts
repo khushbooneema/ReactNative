@@ -1,7 +1,7 @@
 import { UseSelector, useDispatch, useSelector } from "react-redux";
 import { use, useEffect } from "react";
 import { RootState, AppDispatch } from "../Store/store";
-import { loadFavorites, removeFavMovie } from "../Store/Actions";
+import { loadFavorites, removeFavMovie, addFavoriteMovie } from "../Store/Actions";
 import { Movie } from "../API/endpoint";
 import { addFavorite } from "../Store/Reducer";
 
@@ -15,17 +15,16 @@ export const useFavorite = () => {
     }, [dispatch])
 
     const isFavorite = (movieId: number) => {
+        console.log(favorites.length)
         return favorites.some((movie) => movie.id === movieId)
     }
 
     const toggleFavorite = (movie: Movie) => {
         console.log("Toggle is pressed", movie)
         if (isFavorite(movie.id)) {
-            console.log("movie is removed from favorites", movie)
             dispatch(removeFavMovie(movie.id))
         } else {
-            console.log("movie is added to favorites", movie)
-            dispatch(addFavorite(movie))
+            dispatch(addFavoriteMovie(movie))
         }
     }
 

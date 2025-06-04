@@ -44,13 +44,15 @@ export const MovieDetailView = ({ route }:  MovieDetailRoute) => {
         }
     }
 
-    const runTime = (min: number) => {
+    const runTime = (min: number | undefined) => {
+        if (min === undefined) return "Unknown";
+        
         const hours = Math.floor(min / 60);
         const minutes = min % 60;
         return `${hours}h ${minutes}m`;
     }
 
-    const languages = (languages: Language[]) => {
+    const languages = (languages: Language[] | undefined) => {
         let lang = "";
         console.log("Languages: ", languages);
 

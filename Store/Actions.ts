@@ -1,14 +1,19 @@
 import { ThunkAction } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Movie } from "../API/endpoint";
 import { RootState } from "./store";
 import { addFavorite, removeFavorite, setFavorite } from "./Reducer";
+import { createTable, getFavMovies, saveFavorites, deleteFav, getDBConnection } from "../SQLiteStore/dbService";
 
 const favoriteKey = "FAVORITE_KEY"
 
-const saveFavoriteToStorage = async (favorites: Movie[]) => {
+const db = getDBConnection()
+
+const saveFavoriteToStorage = async (favorite: Movie) => {
     try {
-        AsyncStorage.setItem(favoriteKey, JSON.stringify(favorites))
+        await saveFavorites(
+          await db,
+          favorite
+        )
     } catch {
         console.log("Error at storing the favorites")
     }
@@ -16,10 +21,7 @@ const saveFavoriteToStorage = async (favorites: Movie[]) => {
 
 const getFavoriteFromStorage = async () => {
     try {
-        const favorites = await AsyncStorage.getItem(favoriteKey) 
-        if (favorites) {
-            return JSON.parse(favorites)
-        } 
+        return await getFavMovies(await db)
     } catch {
         console.log("Error at fetching the favorites")
     }
@@ -29,20 +31,23 @@ const getFavoriteFromStorage = async () => {
 export const addFavoriteMovie = (movie: Movie): ThunkAction<void, RootState, unknown, any> => 
   async (dispatch, getState) => {
     try {
-      dispatch(addFavorite(movie));
-      await saveFavoriteToStorage([...getState().favorite.movies, movie])
+        console.log("entering into save movie block")
+        await saveFavoriteToStorage(movie)
+        dispatch(addFavorite(movie));
     } catch (error) {
-      console.error('Error adding favorite:', error);
+      console.error('Error adding favorite to the db:', error);
     }
 };
+
 
 export const removeFavMovie = (movieId: number): ThunkAction<void, RootState,unknown, any> => 
     async (dispatch, getState) => {
       try {
+        await deleteFav( 
+          await db,
+          movieId
+        )
         dispatch(removeFavorite(movieId));
-        await saveFavoriteToStorage(
-          getState().favorite.movies.filter((movie: Movie) => movie.id !== movieId)
-        );
       } catch (error) {
         console.error('Error removing favorite:', error);
       }
@@ -51,9 +56,9 @@ export const removeFavMovie = (movieId: number): ThunkAction<void, RootState,unk
 export const loadFavorites = (): ThunkAction<void, RootState, unknown, any> => 
   async (dispatch) => {
     try {
-      const favorites = await AsyncStorage.getItem(favoriteKey);
-      if (favorites) {
-        dispatch(setFavorite(JSON.parse(favorites)));
+      const favorites = await getFavMovies(await db)
+      if (favorites.length) {
+        dispatch(setFavorite(favorites));
       }
     } catch (error) {
       console.error('Error loading favorites:', error);

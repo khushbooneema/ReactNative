@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import { Favorite } from "../Favorite/Favorite";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MovieDetailView } from "../Home/MovieDetail";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { getDBConnection, createTable } from "../SQLiteStore/dbService";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,16 @@ const HomeStackNavigator = () => {
 }
 
 export const TabBar = () => {
+
+    useEffect(() => {
+        const initDB = async () => {
+            const db = await getDBConnection()
+            await createTable(db)
+        } 
+
+        initDB()
+    })
+
     return (
         <Provider store={FavStore}>
             {createTabBar()}
