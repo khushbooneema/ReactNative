@@ -38,3 +38,13 @@ export interface Genre {
     id: number;
     name: string;
 }
+
+export interface User {
+    id: number,
+    name: string,
+    username: string,
+    password: string,
+    emailId: string,
+    country: string,
+    zipcode: string
+}

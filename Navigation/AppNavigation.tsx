@@ -9,7 +9,10 @@ import { Favorite } from "../Favorite/Favorite";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MovieDetailView } from "../Home/MovieDetail";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { getDBConnection, createTable } from "../SQLiteStore/dbService";
+import { getDBConnection, createFavTable } from "../SQLiteStore/FavoriteMovieDB";
+import { createUser } from "../SQLiteStore/UserProfileDB";
+import { Login } from "../Profile/Login";
+import { NewUser } from "../Profile/NewUser";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -22,14 +25,17 @@ const createTabBar = () => {
                     tabBarIcon: ({color, size}) => {
                         if (route.name === "Discover") {
                             return <Ionicons name="home" size={size} color={color} />;
-                        } else {
+                        } else if (route.name == "Favorite"){
                             return <Ionicons name="star-outline" size={size} color={color} />;
+                        } else {
+                            return <Ionicons name="person-outline" size={size} color={color} />
                         }
                     }
                })}
             >
                 <Tab.Screen name="Discover" component={HomeStackNavigator} options={{ headerShown: false }} />
-                <Tab.Screen name="Favorite" component={Favorite}  />
+                <Tab.Screen name="Favorite" component={Favorite} />
+                <Tab.Screen name="Profile" component={ProfileStackNavigator}  options={{ headerShown: false }}/>
             </Tab.Navigator>
         </NavigationContainer>
     )
@@ -39,7 +45,17 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="movieDetail" component={MovieDetailView} options={{ headerBackButtonDisplayMode: "minimal" }}/>
+            <Stack.Screen name="MovieDetail" component={MovieDetailView} options={{ headerBackButtonDisplayMode: "minimal" }}/>
+        </Stack.Navigator>
+    )
+}
+
+
+const ProfileStackNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="NewUser" component={NewUser} options={{ headerBackButtonDisplayMode: "minimal" }}/>
         </Stack.Navigator>
     )
 }
@@ -49,7 +65,8 @@ export const TabBar = () => {
     useEffect(() => {
         const initDB = async () => {
             const db = await getDBConnection()
-            await createTable(db)
+            await createFavTable(db)
+            await createUser(db)
         } 
 
         initDB()

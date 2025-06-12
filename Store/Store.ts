@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { favoriteReducer } from "./Reducer";
+import { favoriteReducer } from "./Reducer/FavReducer";
+import { userReducer } from "./Reducer/UserReducer";
 
 export const FavStore = configureStore({
     reducer: {
-        favorite: favoriteReducer
+        favorite: favoriteReducer,
+        user: userReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({

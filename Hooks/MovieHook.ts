@@ -20,7 +20,7 @@ export const useMovie = () => {
             const response = await apiRequest<MovieResponse> (
                 `movie/popular`,
                 { method: "GET" },
-                { page: page }
+                { page: page, include_adult: false }
             )
 
             if (response.status != 200) {

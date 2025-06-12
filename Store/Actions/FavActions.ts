@@ -1,8 +1,8 @@
 import { ThunkAction } from "@reduxjs/toolkit";
-import { Movie } from "../API/endpoint";
-import { RootState } from "./store";
-import { addFavorite, removeFavorite, setFavorite } from "./Reducer";
-import { createTable, getFavMovies, saveFavorites, deleteFav, getDBConnection } from "../SQLiteStore/dbService";
+import { Movie } from "../../API/endpoint";
+import { RootState } from "../store";
+import { addFavorite, removeFavorite, setFavorite } from "../Reducer/FavReducer";
+import { getFavMovies, saveFavorites, deleteFav, getDBConnection } from "../../SQLiteStore/FavoriteMovieDB";
 
 const favoriteKey = "FAVORITE_KEY"
 

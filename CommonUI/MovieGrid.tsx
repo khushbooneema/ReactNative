@@ -4,6 +4,8 @@ import { Movie } from "../API/endpoint";
 import { useNavigation } from "@react-navigation/native";
 import { MovieDetailView } from "../Home/MovieDetail";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NavigationStackParmaList } from "../Navigation/AppNavigation";
 
 export interface MovieCardProps {
     movie: Movie
@@ -19,7 +21,7 @@ export const MovieGrid = ({ movie, isFavorite, onPressFavorite }: MovieCardProps
             style={styles.container}
             onPress={() => {
                 console.log("Movie pressed: ", movie.title, navigation)
-                navigation.navigate("movieDetail", { movieId: movie.id })
+                navigation.navigate("MovieDetail", { movieId: movie.id })
             }}
             >
             <View style = {styles.imageContainer}>

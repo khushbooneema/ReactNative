@@ -1,9 +1,9 @@
 import { UseSelector, useDispatch, useSelector } from "react-redux";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { RootState, AppDispatch } from "../Store/store";
-import { loadFavorites, removeFavMovie, addFavoriteMovie } from "../Store/Actions";
+import { loadFavorites, removeFavMovie, addFavoriteMovie } from "../Store/Actions/FavActions";
 import { Movie } from "../API/endpoint";
-import { addFavorite } from "../Store/Reducer";
+import { addFavorite } from "../Store/Reducer/FavReducer";
 
 export const useFavorite = () => {
     

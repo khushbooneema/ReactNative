@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Movie } from "../API/endpoint";
+import { Movie } from "../../API/endpoint";
 import { act } from "react";
 
 interface FavoriteState {

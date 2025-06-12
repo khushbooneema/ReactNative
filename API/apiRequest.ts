@@ -12,7 +12,7 @@ export interface Response<T> {
 export async function apiRequest<T>(
     endpoint: string,
     options: RequestInit,
-    params: Record<string, string | number>
+    params: Record<string, string | number | boolean>
 ): Promise<Response<T>> {
    
     const queryParams = new URLSearchParams({
