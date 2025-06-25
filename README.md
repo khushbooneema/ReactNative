@@ -16,7 +16,7 @@ This is a **React Native** project I'm building as part of my self-learning jour
 - 📦 **State Management**: Handled using Redux
 - 💾 **Persistence**: Favorite movies are saved using AsyncStorage
 - 🔃 **Sorting**: Allows sorting by rating or popularity
-- 🔃 **Nearby theaters**: Show the nearby theaters based on the given zipcode(Using the google map api)
+- 🔃 **Nearby theaters**: Shows the nearby theaters based on the given zipcode(Using the google map api)
 ---
 
 ## 🧰 Technologies Used
