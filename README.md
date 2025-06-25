@@ -27,6 +27,8 @@ This is a **React Native** project I'm building as part of my self-learning jour
 - **AsyncStorage**
 - **TMDB API**
 - **TypeScript**
+- **SQLite**
+- **Google maps API**
 
 ---
 
