@@ -71,7 +71,7 @@ export const Login = () => {
                 style={styles.ButtonLink}
                 name="New User?"
                 onPress={()=> {
-                    navigation.navigate("NewUser", {})
+                    navigation.navigate("NewUser")
                     console.log("New user button is pressed...")
                 }}
             />

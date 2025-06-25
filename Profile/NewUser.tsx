@@ -11,7 +11,6 @@ import { useUser } from "../Hooks/UserHook";
 import { getDBConnection } from "../SQLiteStore/FavoriteMovieDB";
 import { getAllUsers } from "../SQLiteStore/UserProfileDB";
 
-
 export const NewUser = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')

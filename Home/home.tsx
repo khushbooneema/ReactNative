@@ -28,7 +28,7 @@ const Home = () => {
 
     const loadMoreMovies = () => {
         
-        if (!loading) {
+        if (!loading && movies.length > 0) {
             fetchMovies(page + 1);
         }
     }
@@ -66,14 +66,18 @@ const Home = () => {
 
     // return the view
     return (
-        <View>            
+        <View> 
             <FlatList
                 data={sortProps}
                 renderItem={sortText}
-                keyExtractor={(item) => item.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 numColumns={4}
                 showsHorizontalScrollIndicator={false}
             />
+
+             {error != null ? (
+                <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
+            ) : null}
 
             <FlatList
                 data={movies}

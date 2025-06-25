@@ -13,6 +13,7 @@ import { getDBConnection, createFavTable } from "../SQLiteStore/FavoriteMovieDB"
 import { createUser } from "../SQLiteStore/UserProfileDB";
 import { Login } from "../Profile/Login";
 import { NewUser } from "../Profile/NewUser";
+import TheatersView from "../Home/Theaters";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,8 @@ const createTabBar = () => {
                             return <Ionicons name="home" size={size} color={color} />;
                         } else if (route.name == "Favorite"){
                             return <Ionicons name="star-outline" size={size} color={color} />;
+                        } else if (route.name === "Theaters") {
+                            return <Ionicons name="location-outline" size={size} color={color} />;
                         } else {
                             return <Ionicons name="person-outline" size={size} color={color} />
                         }
@@ -36,6 +39,7 @@ const createTabBar = () => {
                 <Tab.Screen name="Discover" component={HomeStackNavigator} options={{ headerShown: false }} />
                 <Tab.Screen name="Favorite" component={Favorite} />
                 <Tab.Screen name="Profile" component={ProfileStackNavigator}  options={{ headerShown: false }}/>
+                <Tab.Screen name="Theaters" component={TheatersView}/>
             </Tab.Navigator>
         </NavigationContainer>
     )

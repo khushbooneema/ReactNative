@@ -29,13 +29,3 @@ export const getUserFromDB = (username: string, password: string): ThunkAction<v
         return error
     }
 }
-
-export const getAllUserFromDB = (): ThunkAction<void, RootState, unknown, any> => 
-    async(dispatch, getState) => {
-
-    try {
-        const users = getAllUsers(await db)
-    } catch (error) {
-        return error
-    }
-}

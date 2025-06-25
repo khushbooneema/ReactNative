@@ -38,7 +38,7 @@ export const useMovie = () => {
             }
         } catch (error) {
             setError("An error occurred while fetching movies.");
-            setMovies([]);
+            setError(error.message);
             setLoading(false);
         } finally {
             setLoading(false);
@@ -47,6 +47,7 @@ export const useMovie = () => {
 
     useEffect(() => {
         fetchMovies(page);
+        
     }, [page]);
 
     // remove the duplicates movies based on the id:
