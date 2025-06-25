@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { GOOGLE_API_KEY } from '@env'
 
 export interface Theater {
     name: string
@@ -15,11 +16,10 @@ export interface Geometry {
 }
 
 
-const api_key = `AIzaSyBIcbdlwWgdYTDBMTApllMAlqTypVYpPvE`
 const baseURL = `https://maps.googleapis.com/maps/api/`
 
 export async function fetchCoordinates( zipcode: string): Promise<{lat:number, lng: number}> {
-    const url = `${baseURL}geocode/json?address=${zipcode}&key=${api_key}`
+    const url = `${baseURL}geocode/json?address=${zipcode}&key=${GOOGLE_API_KEY}`
     const response = await fetch(url)
     if (!response.ok) {
         throw new Error(`Error fetching coordinates: ${response.statusText}`);
@@ -35,7 +35,7 @@ export async function fetchCoordinates( zipcode: string): Promise<{lat:number, l
 
 export async function fetchNearestTheaters(lat: number, lng: number): Promise<Theater[]> {
     const radius = 20000 // 20 km
-    const url = `${baseURL}place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=movie_theater&key=${api_key}`
+    const url = `${baseURL}place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=movie_theater&key=${GOOGLE_API_KEY}`
     const response = await fetch(url)
 
     if (!response.ok) {

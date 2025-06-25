@@ -1,6 +1,6 @@
 import React from "react";
+import { TMDB_API_KEY } from '@env'
 
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYzU2NjEyMTczMmNlOTgxY2JiOGUwMjZiNzlhMTU2YyIsIm5iZiI6MTc0NDAzNjYwOS4wMjEsInN1YiI6IjY3ZjNlMzAxZGRmOTE5NDM4N2Q5ODc1MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.toZFpk_R8qH5MsIh5_N1vfItmAfQqABCeaPnrRJXKlg'; // Replace with your actual API key
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Response<T> {
@@ -27,7 +27,7 @@ export async function apiRequest<T>(
             ...options,
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': `Bearer ${API_KEY}`,
+                'authorization': `Bearer ${TMDB_API_KEY}`,
             }
         })
 
